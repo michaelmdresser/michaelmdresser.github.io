@@ -12,14 +12,14 @@ h1 {
 }
 
 .general {
-    background-color: #34495e;
+    background-color: #7f8c8d;
     font-size: 1em;
     font-family: Roboto;
 }
 
 #header {
     background-color: #2c3e50;
-    margin-left: 0px;
-    margin-right: 0px;
+    margin-left: 20px;
+    margin-right: 20px;
     margin-top: 10px;
 }
