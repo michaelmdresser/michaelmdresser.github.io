@@ -101,7 +101,7 @@ body {
 }
 
 #resume {
-    background-color: #000033;
+    background-color: #1b2631;
     display: block;
     margin: auto;
     margin-top: 10px;
@@ -126,6 +126,12 @@ body {
 
 #linkedinlogo {
     display: inline-block;
+    margin: 20px 20px 0 20px;
+    width: 20%;
+}
+
+#resumelogo {
+    display:inline-block;
     margin: 20px 20px 0 20px;
     width: 20%;
 }
