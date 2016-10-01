@@ -124,6 +124,10 @@ body {
     position: relative;
 }
 
+#gitlogofix {
+    margin-bottom: -7px;
+}
+
 #linkedinlogo {
     display: inline-block;
     margin: 20px 20px 0 20px;
