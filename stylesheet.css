@@ -16,6 +16,8 @@ ul {
 body {
     width: 90%;
     margin: auto;
+    margin-top: 10px;
+    margin-bottom: 500px;
 }
 
 .title {
@@ -38,21 +40,26 @@ body {
     font-family: Roboto;
 }
 
-#header {
+.generalblock {
     background-color: #2c3e50;
+    box-shadow: 8px 8px 10px rgba(0, 0, 0, .4);
+}
+
+.logolink {
+    width: 90%;
+}
+
+#header {
+
     width: 90%;
     margin-top: 15px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
     border: 0px 0px 0px 0px;
-    padding: 5px 0px 5px 0px;
+    padding: 5px 0px 15px 0px;
 
-    box-shadow: 8px 8px 10px rgba(0, 0, 0, .4)
 
-    /*position: relative;
-    top: -10px;
-    */
 }
 
 #headshot {
@@ -75,20 +82,64 @@ body {
     width: 90%;
     text-align: center;
 }
+
 #leftblock {
     text-align: left;
     display: inline-block;
     margin: auto;
-    width: 45%;
+    float: left;
+    width: 49%;
     top: 10px;
     vertical-align: top;
+    min-height: 250px;
 }
 
 #rightblock {
     text-align: left;
     display: inline-block;
     margin: auto;
-    width: 45%;
+    float: right;
+    font-size: 1.25em;
+    width: 49%;
     top: 10px;
     vertical-align: top;
+    min-height: 250px;
+}
+
+#resume {
+    background-color: #29293d;
+    display: block;
+    margin: auto;
+    width: 20%;
+    padding: 3px 3px 3px 3px;
+    text-align: center;
+}
+
+#logolinks {
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#gitlogo {
+    display: inline-block;
+    margin: 0 20px 0 20px;
+    width: 20%;
+}
+
+#linkedinlogo {
+    display: inline-block;
+    margin: 0 20px 0 20px;
+    width: 20%;
+}
+
+#copyright {
+    display: block;
+    font-size: .5em;
+    text-align: center;
+    margin: auto;
+    position: relative;
+    top: 27px
 }
