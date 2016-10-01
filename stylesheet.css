@@ -126,7 +126,7 @@ body {
 
 #gitlogo {
     display: inline-block;
-    margin: 20px 20px 0 20px;
+    margin: 30px 20px 0 20px;
     width: 20%;
     position: relative;
 }
@@ -137,14 +137,14 @@ body {
 
 #linkedinlogo {
     display: inline-block;
-    margin: 20px 20px 0 20px;
+    margin: 30px 20px 0 20px;
     width: 20%;
     position: relative;
 }
 
 #resumelogo {
     display:inline-block;
-    margin: 20px 20px 0 20px;
+    margin: 30px 20px 0 20px;
     width: 20%;
     position: relative;
 }
