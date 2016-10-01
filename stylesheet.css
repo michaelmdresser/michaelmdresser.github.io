@@ -1,7 +1,7 @@
 h1 {
     font-size: 2.5em;
     text-align: center;
-    margin: 5px 0 5px 0;
+    margin: 10px 0 5px 0;
 }
 
 a {
@@ -43,6 +43,12 @@ body {
 .generalblock {
     background-color: #2c3e50;
     box-shadow: 8px 8px 10px rgba(0, 0, 0, .4);
+    top: 10px;
+    vertical-align: top;
+    min-height: 265px;
+    text-align: left;
+    font-size: 1.25em;
+    width: 48%;
 }
 
 .logolink {
@@ -86,22 +92,11 @@ body {
 }
 
 #leftblock {
-    text-align: left;
     float: left;
-    width: 48%;
-    top: 10px;
-    vertical-align: top;
-    min-height: 250px;
 }
 
 #rightblock {
-    text-align: left;
     float: right;
-    font-size: 1.25em;
-    width: 48%;
-    top: 10px;
-    vertical-align: top;
-    min-height: 250px;
 }
 
 #resume {
@@ -117,7 +112,7 @@ body {
 #logolinks {
     display: block;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 20px;
     text-align: center;
 }
