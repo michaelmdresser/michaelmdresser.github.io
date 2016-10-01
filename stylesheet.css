@@ -81,6 +81,7 @@ body {
     margin-top: 20px;
     width: 90%;
     text-align: center;
+    overflow: auto;
 }
 
 #leftblock {
