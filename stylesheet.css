@@ -85,10 +85,7 @@ body {
 
 #leftblock {
     text-align: left;
-    display: inline-block;
-    margin: auto;
-    margin-left: 0px;
-    margin-right: 20px;
+    float: left;
     width: 45%;
     top: 10px;
     vertical-align: top;
@@ -97,10 +94,7 @@ body {
 
 #rightblock {
     text-align: left;
-    display: inline-block;
-    margin: auto;
-    margin-left: 20px;
-    margin-right: 0px;
+    float: right;
     font-size: 1.25em;
     width: 45%;
     top: 10px;
