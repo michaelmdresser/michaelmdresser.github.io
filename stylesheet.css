@@ -87,8 +87,9 @@ body {
     text-align: left;
     display: inline-block;
     margin: auto;
-    float: left;
-    width: 49%;
+    margin-left: 0px;
+    margin-right: 20px;
+    width: 45%;
     top: 10px;
     vertical-align: top;
     min-height: 250px;
@@ -98,9 +99,10 @@ body {
     text-align: left;
     display: inline-block;
     margin: auto;
-    float: right;
+    margin-left: 20px;
+    margin-right: 0px;
     font-size: 1.25em;
-    width: 49%;
+    width: 45%;
     top: 10px;
     vertical-align: top;
     min-height: 250px;
