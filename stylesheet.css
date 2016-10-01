@@ -17,7 +17,7 @@ body {
     width: 90%;
     margin: auto;
     margin-top: 10px;
-    margin-bottom: 500px;
+    margin-bottom: 50px;
 }
 
 .title {
@@ -109,7 +109,7 @@ body {
 }
 
 #resume {
-    background-color: #29293d;
+    background-color: #000033;
     display: block;
     margin: auto;
     margin-top: 10px;
