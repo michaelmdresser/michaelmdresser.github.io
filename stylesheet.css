@@ -110,8 +110,9 @@ body {
     background-color: #29293d;
     display: block;
     margin: auto;
-    width: 20%;
-    padding: 3px 3px 3px 3px;
+    margin-top: 10px;
+    width: 30%;
+    padding: 5px 3px 5px 3px;
     text-align: center;
 }
 
@@ -125,13 +126,13 @@ body {
 
 #gitlogo {
     display: inline-block;
-    margin: 0 20px 0 20px;
+    margin: 20px 20px 0 20px;
     width: 20%;
 }
 
 #linkedinlogo {
     display: inline-block;
-    margin: 0 20px 0 20px;
+    margin: 20px 20px 0 20px;
     width: 20%;
 }
 
