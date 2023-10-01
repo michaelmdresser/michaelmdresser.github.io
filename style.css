@@ -7,3 +7,9 @@ body {
      font-size: large;
 }
 
+.diffInputField {
+     white-space: pre;
+     overflow-wrap: normal;
+     overflow-y: scroll;
+     overflow-x: scroll;
+}

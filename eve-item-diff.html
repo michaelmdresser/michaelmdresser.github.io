@@ -1,0 +1,71 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>EVE Item Diff</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+
+  <script type="module">
+  import init, { diff } from './eve_item_diff/eve_item_diff_wasm.js';
+
+  async function run() {
+     await init();
+
+     function onclick() {
+    let leftInput = document.getElementById("inputFieldLeft").value;
+    let rightInput = document.getElementById("inputFieldRight").value;
+
+         try {
+
+       let {left_items, right_items, left_missing, right_missing, left_missing_formatted, right_missing_formatted} = diff(leftInput, rightInput);
+             document.getElementById("errorBox").innerHTML = '';
+
+             let tastart = '<textarea readonly rows=12 cols=50 class="diffInputField">';
+       document.getElementById("missingLeftP").innerHTML = tastart + left_missing_formatted + "</textarea>";
+       document.getElementById("missingRightP").innerHTML = tastart + right_missing_formatted + "</textarea>";
+         } catch (error) {
+             document.getElementById("errorBox").innerHTML = '<p style="font-family: monospace">' + error + '</p>';
+         }
+     }
+
+     document.getElementById("diffButton").onclick = onclick;
+     document.getElementById("inputFieldLeft").addEventListener("keydown", function(event) {
+       if (event.key === "Enter") { onclick(); }
+     })
+     document.getElementById("inputFieldRight").addEventListener("keydown", function(event) {
+       if (event.key === "Enter") { onclick(); }
+     })
+   }
+   run();
+  </script>
+    </head>
+    <body style="max-width: 50rem">
+
+        <h1>EVE Item Diff</h1>
+        <p>Paste in lists of EVE items. They will be diffed, and the missing items in each list will be shown below in a format friendly for importing back into EVE (e.g. via Multibuy). All EVE text formats should be supported and be interchangeable within each input box.</p>
+
+        <div id="errorBox"></div>
+
+        <button id="diffButton">Diff</button><br>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 35px 1fr">
+            <textarea rows="16" cols="50" class="diffInputField" id="inputFieldLeft" style="grid-column-start: 1; grid-column-end: 2" placeholder="Paladin x1"></textarea>
+            <textarea rows="16" cols="50" class="diffInputField" id="inputFieldRight" style="grid-column-start: 2; grid-column-end: 3" placeholder="Imperial Navy Acolyte 3"></textarea>
+
+            <h3 style="grid-column-start: 1; grid-column-end: 2">Items missing vs. right</h3>
+            <h3 style="grid-column-start: 2; grid-column-end: 3">Items missing vs. left</h3>
+
+            <div id="missingLeft" style="grid-column-start: 1; grid-column-end: 2">
+                <p id="missingLeftP" style="font-family: monospace;"></p>
+            </div>
+            <div id="missingRight" style="grid-column-start: 2; grid-column-end: 3">
+                <p id="missingRightP" style="font-family: monospace;"></p>
+            </div>
+        </div>
+
+        <p>EVE Item Diff uses a custom <a href="https://github.com/michaelmdresser/eve_item_parser">parser</a> and <a href="https://github.com/michaelmdresser/eve_item_diff">differ</a> written in Rust to perform its function. The libraries are accessed via WASM.</p>
+    </body>
+</html>
