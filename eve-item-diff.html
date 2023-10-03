@@ -15,30 +15,29 @@
      await init();
 
      function onclick() {
-         document.getElementById("missingLeftP").innerHTML = "";
-         document.getElementById("missingRightP").innerHTML = "";
-    let leftInput = document.getElementById("inputFieldLeft").value;
-    let rightInput = document.getElementById("inputFieldRight").value;
+        document.getElementById("missingLeftP").innerHTML = "";
+        document.getElementById("missingRightP").innerHTML = "";
+        let leftInput = document.getElementById("inputFieldLeft").value;
+        let rightInput = document.getElementById("inputFieldRight").value;
 
-         try {
+        try {
+           let {left_items, right_items, left_missing, right_missing, left_missing_formatted, right_missing_formatted} = diff(leftInput, rightInput);
+           document.getElementById("errorBox").innerHTML = '';
 
-       let {left_items, right_items, left_missing, right_missing, left_missing_formatted, right_missing_formatted} = diff(leftInput, rightInput);
-             document.getElementById("errorBox").innerHTML = '';
-
-             let tastart = '<textarea readonly rows=12 cols=50 class="diffInputField">';
-       document.getElementById("missingLeftP").innerHTML = tastart + left_missing_formatted + "</textarea>";
-       document.getElementById("missingRightP").innerHTML = tastart + right_missing_formatted + "</textarea>";
-         } catch (error) {
-             document.getElementById("errorBox").innerHTML = '<p style="font-family: monospace">' + error + '</p>';
-         }
+           let tastart = '<textarea readonly rows=12 cols=50 class="diffInputField">';
+           document.getElementById("missingLeftP").innerHTML = tastart + left_missing_formatted + "</textarea>";
+           document.getElementById("missingRightP").innerHTML = tastart + right_missing_formatted + "</textarea>";
+        } catch (error) {
+           document.getElementById("errorBox").innerHTML = '<p style="font-family: monospace">' + error + '</p>';
+        }
      }
 
      document.getElementById("diffButton").onclick = onclick;
      document.getElementById("inputFieldLeft").addEventListener("keydown", function(event) {
-       if (event.key === "Enter") { onclick(); }
+        if (event.key === "Enter") { onclick(); }
      })
      document.getElementById("inputFieldRight").addEventListener("keydown", function(event) {
-       if (event.key === "Enter") { onclick(); }
+        if (event.key === "Enter") { onclick(); }
      })
    }
    run();
@@ -47,7 +46,7 @@
     <body style="max-width: 50rem">
 
         <h1>EVE Item Diff</h1>
-        <p>Paste in lists of EVE items. They will be diffed, and the missing items in each list will be shown below in a format friendly for importing back into EVE (e.g. via Multibuy). All EVE text formats should be supported and be interchangeable within each input box.</p>
+        <p>Paste in lists of EVE Online items. They will be diffed, and the missing items in each list will be shown below in a format friendly for importing back into EVE (e.g. via Multibuy). All EVE text formats should be supported and be interchangeable within each input box.</p>
 
         <div id="errorBox"></div>
 
@@ -68,6 +67,10 @@
             </div>
         </div>
 
-        <p>EVE Item Diff uses a custom <a href="https://github.com/michaelmdresser/eve_item_parser">parser</a> and <a href="https://github.com/michaelmdresser/eve_item_diff">differ</a> written in Rust to perform its function. The libraries are accessed via WASM and thus function local to the browser -- no network calls required after the page loads.</p>
+        <p>An example use-case: you're trying to buy a fitted ship off of your alliance's contracts. You want to verify that the fit on contract matches the doctrine fit for the alliance. Paste the contract item list in one side and the official fit in the other side.</p>
+
+        <p>Diffing the order of fitted modules (and whether a module is fit or in cargo) is not yet supported.</p>
+
+        <p>EVE Item Diff uses a <a href="https://github.com/michaelmdresser/eve_item_parser">parser</a> and <a href="https://github.com/michaelmdresser/eve_item_diff">differ</a> written in Rust. The libraries are accessed via WASM and thus function local to the browser. No network calls are required after the page loads.</p>
     </body>
 </html>
