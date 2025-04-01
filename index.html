@@ -46,29 +46,30 @@
 
   <h3><u>Projects</u></h3>
 
-  <strong>ballotbot</strong> - <a href="https://github.com/michaelmdresser/ballotbot">Code</a>
+  <strong>ballotbot</strong> — <a href="https://github.com/michaelmdresser/ballotbot">Source</a>
   <div class="projectExplanation">
-    Discord bot for small-group voting. Contains a custom implementation of the
+    <p>Discord bot for small-group voting. Contains a custom implementation of the
     <a href="https://en.wikipedia.org/wiki/Condorcet_method"> Condorcet method</a> and the
     <a href="https://en.wikipedia.org/wiki/Schulze_method">Schulze method</a> for
-    determining winners. We use it for determing our book club's next read.
+    determining winners. We use it for determing our book club's next read.</p>
   </div>
 
-  <strong><a href="eve-item-diff.html">EVE Item Diff</a></strong> -
-    <a href="https://github.com/michaelmdresser/eve_item_diff">Code (diff)</a>,
-    <a href="https://github.com/michaelmdresser/eve_item_parser">Code (parser)</a>
+  <strong>EVE Item Diff</strong> — <a href="eve-item-diff.html">Live (web)</a>,
+    <a href="https://github.com/michaelmdresser/eve_item_diff">Source (diff)</a>,
+    <a href="https://github.com/michaelmdresser/eve_item_parser">Source (parser)</a>
     <div class="projectExplanation">
-    Diff lists of EVE Online items, including type ID lookup. I use this to
-    ensure my fits and fits in contracts match the current doctrine. When modules
-    or charges are missing it's simple to copy the to-be-purchased items back into
-    the game.
+    <p>Diff lists of EVE Online items, including type ID lookup. I use this to
+    ensure my fits and fits in contracts match the current doctrine. When
+    modules or charges are missing it's simple to copy the to-be-purchased items
+    back into the game.</p>
+    <p>The tool is browser-local via WASM.</p>
     </div>
 
-  <strong>dicelang</strong> -
-    <a href="https://github.com/michaelmdresser/dicelang">Code</a>
+  <strong>dicelang</strong> —
+    <a href="https://github.com/michaelmdresser/dicelang">Source</a>
     <div class="projectExplanation">
-    Parser and evaluator for DnD-like dice rolls, e.g.
-    "d20+1d4-1d6+3". Written in Rust. Try it out via WASM:<br>
+    <p>Parser and evaluator for DnD-like dice rolls, e.g.
+      "d20+1d4-1d6+3". Written in Rust. Try it out via WASM:</p>
       <input type="text" id="inputField" placeholder="d20+1d4-1d6+3">
       <button id="rollButton" onclick="foo()">Roll</button><br></p>
       <div id="outputDiv">
@@ -76,60 +77,69 @@
       </div>
     </div>
 
-  <strong>Squirdle query builder</strong> - <a href="https://github.com/michaelmdresser/squirdlequerybuilder">Code</a>
+  <strong>Squirdle query builder</strong> — <a href="https://github.com/michaelmdresser/squirdlequerybuilder">Source</a>
     <div class="projectExplanation">
-    Automatic refinement query builder for the guessing game <a href="https://squirdle.fireblend.com/">Squirdle</a>. See the repo for an explanation. Best used as a bookmarklet.
+    <p>Automatic refinement query builder for the guessing game <a href="https://squirdle.fireblend.com/">Squirdle</a>. Parses the results
+      of existing guesses to narrow down the possible Pokémon answer.</p>
+      <p>Best used as a bookmarklet.</p>
     </div>
 
-  <strong><a href="https://michaelmdresser.com/teemo-tool-site-standalone/">Teemo Tool</a></strong> -
-    <a href="https://github.com/michaelmdresser/teemo-tool-site-standalone">Code</a>
+    <strong>Teemo Tool</strong> — <a href="https://michaelmdresser.com/teemo-tool-site-standalone/">Live (web)</a>,
+    <a href="https://github.com/michaelmdresser/teemo-tool-site-standalone">Source</a>
     <div class="projectExplanation">
-    Tracks live betting activity on the
+    <p>Tracks live betting activity on the
     <a href="https://twitch.tv/saltyteemo">Salty Teemo</a> stream to help
     make more informed bets by knowing live odds during betting
-    windows. Entirely local to the browser.
+    windows.</p>
+    <p>The tool is browser-local via JS and a simple JS Twitch chat library.</p>
     </div>
 
-  <strong>Teemo Tool</strong> (original, deprecated) -
-    <a href="https://github.com/michaelmdresser/teemo-tool">Code</a>
+  <strong>Teemo Tool</strong> (original, deprecated) —
+    <a href="https://github.com/michaelmdresser/teemo-tool">Source</a>
     <div class="projectExplanation">
-    A Clojure project for tracking betting activity on the Salty
+    <p>A Clojure project for tracking betting activity on the Salty
     Teemo stream. Includes a crawler for the Riot
-    API which was an excuse to learn more Clojure (transducers are
-    neat).
+    API which was an excuse to learn more Clojure; transducers are
+    neat!</p>
+    <p>I tried to use that API data to build models of varying complexity
+    to answer the "which team will win?" question based on data available during
+    the betting window. (For example: is Master Yi really an indicator of success
+    at low ranks?). None of my attempts yielded a useful result.</p>
     </div>
 
-  <strong><a href="https://michaelmdresser.com/dm-dashboard">DM Dashboard</a></strong> -
-    <a href="https://github.com/michaelmdresser/dm-dashboard">Code</a>
+  <strong>DM Dashboard</strong> — <a href="https://michaelmdresser.com/dm-dashboard">Live (web)</a></strong>,
+    <a href="https://github.com/michaelmdresser/dm-dashboard">Source</a>
     <div class="projectExplanation">
-    I DMed a couple of DnD campaigns and had trouble keeping track of
-    large fights. While not complete, this tool helped me keep track
-    of turns and roll initiative for large numbers of monsters.
+    <p>Keeps track of turn order and intiative rolls for large DnD battles.</p>
+    <p>I DMed a couple of DnD campaigns and had trouble of keeping track
+    of fights with many small monsters; such fights are thematically great but
+    difficult to track by hand. This tool helped a bit.</p>
     </div>
 
-  <strong>SchemeInterp</strong> -
-    <a href="https://github.com/michaelmdresser/schemeinterp">Code</a>
+  <strong>SchemeInterp</strong> —
+    <a href="https://github.com/michaelmdresser/schemeinterp">Source</a>
     <div class="projectExplanation">
-    A fun attempt to write an interpreter for Scheme in Go. Very
-    incomplete.
+    <p>An incomplete attempt to write an interpreter for Scheme in Go.</p>
     </div>
 
-  <strong><a href="https://michaelmdresser.com/bahoth-stats">Betrayal at House on the Hill stat tracking</a></strong> -
-    <a href="https://github.com/michaelmdresser/bahoth-stats">Code</a>
+  <strong>Betrayal at House on the Hill stat tracking</strong> — <a href="https://michaelmdresser.com/bahoth-stats">Live (web)</a></strong>,
+    <a href="https://github.com/michaelmdresser/bahoth-stats">Source</a>
     <div class="projectExplanation">
-    I played several games of Betrayal at House on the Hill and found
-    the physical stat trackers provided with the game to be poorly
-    constructed and easy to lose your place with. This site provides
-    a reliable way to track stats in a browser.
+    <p>Provides a reliable, though not pretty, way to track BaHotH stats
+    without losing your place.</p>
+    <p>I played several games of Betrayal at House on the Hill and found
+    that the stat trackers provided with the game would frequently slip,
+    so I decided to make something a little sturdier.
+    </p>
     </div>
 
-  <strong><a href="https://michaelmdresser.com/elm-obama">Elm Obama</a></strong> -
-  <a href="https://github.com/michaelmdresser/elm-talk-to-obama">Code</a>
+  <strong>Elm Obama</strong> — <a href="https://michaelmdresser.com/elm-obama">Live (web)</a></strong>,
+  <a href="https://github.com/michaelmdresser/elm-talk-to-obama">Source</a>
     <div class="projectExplanation">
-    Elm-learning project. A frontend for an
+    <p>Elm-learning project. A frontend for an
     <a href="https://github.com/krrishd/talk-to-obama">old hackathon project</a>
     I worked on with some college friends. Probably
-    non-functional due to Heroku's removal of old projects.
+    non-functional due to Heroku's removal of old projects.</p>
     </div>
 
 
