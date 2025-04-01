@@ -44,79 +44,96 @@
   "https://www.github.com/michaelmdresser">GitHub</a></p>
 
 
-  <h3>Projects</h3>
+  <h3><u>Projects</u></h3>
 
-  <p><strong>ballotbot</strong> - <a href="https://github.com/michaelmdresser/ballotbot">Code</a><br>
+  <strong>ballotbot</strong> - <a href="https://github.com/michaelmdresser/ballotbot">Code</a>
+  <div class="projectExplanation">
     Discord bot for small-group voting. Contains a custom implementation of the
     <a href="https://en.wikipedia.org/wiki/Condorcet_method"> Condorcet method</a> and the
     <a href="https://en.wikipedia.org/wiki/Schulze_method">Schulze method</a> for
     determining winners. We use it for determing our book club's next read.
-  </p>
-
-  <p><strong><a href="eve-item-diff.html">EVE Item Diff</a></strong> -
-    <a href="https://github.com/michaelmdresser/eve_item_diff">Code (diff)</a> -
-    <a href="https://github.com/michaelmdresser/eve_item_parser">Code (parser)</a><br>
-    Item list diff tool for EVE Online. Useful when comparing
-    contracted ship fits against the doctrine they are supposed to match or when
-    comparing an old-fit ship against a new doctrine to determine the required
-    new modules. </p>
-
-  <p><strong>dicelang</strong> -
-    <a href="https://github.com/michaelmdresser/dicelang">Code</a><br>
-  Parser and evaluator for DnD-like dice rolls, e.g.
-  "d20+1d4-1d6+3". Written in Rust. Try it out via WASM:<br>
-  <input type="text" id="inputField" placeholder="d20+1d4-1d6+3">
-  <button id="rollButton" onclick="foo()">Roll</button><br></p>
-  <div id="outputDiv">
-    <p id="outputP" style="font-family: monospace;"></p>
   </div>
-  <p></p>
 
-  <p><strong>Squirdle query builder</strong> - <a href="https://github.com/michaelmdresser/squirdlequerybuilder">Code</a><br>
+  <strong><a href="eve-item-diff.html">EVE Item Diff</a></strong> -
+    <a href="https://github.com/michaelmdresser/eve_item_diff">Code (diff)</a>,
+    <a href="https://github.com/michaelmdresser/eve_item_parser">Code (parser)</a>
+    <div class="projectExplanation">
+    Diff lists of EVE Online items, including type ID lookup. I use this to
+    ensure my fits and fits in contracts match the current doctrine. When modules
+    or charges are missing it's simple to copy the to-be-purchased items back into
+    the game.
+    </div>
+
+  <strong>dicelang</strong> -
+    <a href="https://github.com/michaelmdresser/dicelang">Code</a>
+    <div class="projectExplanation">
+    Parser and evaluator for DnD-like dice rolls, e.g.
+    "d20+1d4-1d6+3". Written in Rust. Try it out via WASM:<br>
+      <input type="text" id="inputField" placeholder="d20+1d4-1d6+3">
+      <button id="rollButton" onclick="foo()">Roll</button><br></p>
+      <div id="outputDiv">
+        <p id="outputP" style="font-family: monospace;"></p>
+      </div>
+    </div>
+
+  <strong>Squirdle query builder</strong> - <a href="https://github.com/michaelmdresser/squirdlequerybuilder">Code</a>
+    <div class="projectExplanation">
     Automatic refinement query builder for the guessing game <a href="https://squirdle.fireblend.com/">Squirdle</a>. See the repo for an explanation. Best used as a bookmarklet.
-  </p>
+    </div>
 
-  <p><strong><a href="https://michaelmdresser.com/teemo-tool-site-standalone/">Teemo Tool</a></strong> -
-    <a href="https://github.com/michaelmdresser/teemo-tool-site-standalone">Code</a><br>
+  <strong><a href="https://michaelmdresser.com/teemo-tool-site-standalone/">Teemo Tool</a></strong> -
+    <a href="https://github.com/michaelmdresser/teemo-tool-site-standalone">Code</a>
+    <div class="projectExplanation">
     Tracks live betting activity on the
     <a href="https://twitch.tv/saltyteemo">Salty Teemo</a> stream to help
-  make more informed bets by knowing live odds during betting
-  windows. Runs fully local to the browser.</p>
+    make more informed bets by knowing live odds during betting
+    windows. Entirely local to the browser.
+    </div>
 
-  <p><strong>Teemo Tool</strong> (original, deprecated) -
-    <a href="https://github.com/michaelmdresser/teemo-tool">Code</a><br>
-  A Clojure project for tracking betting activity on the Salty
-  Teemo stream. Includes a crawler for the Riot
-  API which was an excuse to learn more Clojure (transducers are
-  neat).</p>
+  <strong>Teemo Tool</strong> (original, deprecated) -
+    <a href="https://github.com/michaelmdresser/teemo-tool">Code</a>
+    <div class="projectExplanation">
+    A Clojure project for tracking betting activity on the Salty
+    Teemo stream. Includes a crawler for the Riot
+    API which was an excuse to learn more Clojure (transducers are
+    neat).
+    </div>
 
-  <p><strong><a href="https://michaelmdresser.com/dm-dashboard">DM Dashboard</a></strong> -
-    <a href="https://github.com/michaelmdresser/dm-dashboard">Code</a><br>
-  I DMed a couple of DnD campaigns and had trouble keeping track of
-  large fights. While not complete, this tool helped me keep track
-  of turns and roll initiative for large numbers of monsters.</p>
+  <strong><a href="https://michaelmdresser.com/dm-dashboard">DM Dashboard</a></strong> -
+    <a href="https://github.com/michaelmdresser/dm-dashboard">Code</a>
+    <div class="projectExplanation">
+    I DMed a couple of DnD campaigns and had trouble keeping track of
+    large fights. While not complete, this tool helped me keep track
+    of turns and roll initiative for large numbers of monsters.
+    </div>
 
-  <p><strong>SchemeInterp</strong> -
-    <a href="https://github.com/michaelmdresser/schemeinterp">Code</a><br>
-  A fun attempt to write an interpreter for Scheme in Go. Very
-  incomplete.</p>
+  <strong>SchemeInterp</strong> -
+    <a href="https://github.com/michaelmdresser/schemeinterp">Code</a>
+    <div class="projectExplanation">
+    A fun attempt to write an interpreter for Scheme in Go. Very
+    incomplete.
+    </div>
 
-  <p><strong><a href="https://michaelmdresser.com/bahoth-stats">Betrayal at House on the Hill stat tracking</a></strong> -
-    <a href="https://github.com/michaelmdresser/bahoth-stats">Code</a><br>
-  I played several games of Betrayal at House on the Hill and found
-  the physical stat trackers provided with the game to be poorly
-  constructed and easy to lose your place with. This site provides
-  a reliable way to track stats in a browser.</p>
+  <strong><a href="https://michaelmdresser.com/bahoth-stats">Betrayal at House on the Hill stat tracking</a></strong> -
+    <a href="https://github.com/michaelmdresser/bahoth-stats">Code</a>
+    <div class="projectExplanation">
+    I played several games of Betrayal at House on the Hill and found
+    the physical stat trackers provided with the game to be poorly
+    constructed and easy to lose your place with. This site provides
+    a reliable way to track stats in a browser.
+    </div>
 
-  <p><strong><a href="https://michaelmdresser.com/elm-obama">Elm Obama</a></strong> -
-  <a href="https://github.com/michaelmdresser/elm-talk-to-obama">Code</a><br>
-  Elm-learning project. A frontend for an
-  <a href="https://github.com/krrishd/talk-to-obama">old hackathon project</a>
-  I worked on with some college friends. Probably
-  non-functional due to Heroku's removal of old projects.</p>
+  <strong><a href="https://michaelmdresser.com/elm-obama">Elm Obama</a></strong> -
+  <a href="https://github.com/michaelmdresser/elm-talk-to-obama">Code</a>
+    <div class="projectExplanation">
+    Elm-learning project. A frontend for an
+    <a href="https://github.com/krrishd/talk-to-obama">old hackathon project</a>
+    I worked on with some college friends. Probably
+    non-functional due to Heroku's removal of old projects.
+    </div>
 
 
-  <h3>Other</h3>
+  <h3><u>Other</u></h3>
 
   <p>I read. A few favorites:</p>
   <ul>
