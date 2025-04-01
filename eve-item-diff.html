@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>EVE Item Diff</title>
-        <meta name="description" content="">
+        <meta name="description" content="Diff lists of EVE Online items to check fit or contract accuracy. Accepts all EVE text formats and outputs a valid EVE text format.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css">
 
@@ -43,7 +43,7 @@
    run();
   </script>
     </head>
-    <body style="max-width: 50rem">
+    <body style="max-width: 60rem">
 
         <h1>EVE Item Diff</h1>
         <p>Paste in lists of EVE Online items. They will be diffed, and the missing items in each list will be shown below in a format friendly for importing back into EVE (e.g. via Multibuy). All EVE text formats should be supported and be interchangeable within each input box.</p>
@@ -56,8 +56,18 @@
         <br>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 35px 1fr">
-            <textarea rows="16" cols="50" class="diffInputField" id="inputFieldLeft" style="grid-column-start: 1; grid-column-end: 2" spellcheck="false" placeholder="Paladin x1"></textarea>
-            <textarea rows="16" cols="50" class="diffInputField" id="inputFieldRight" style="grid-column-start: 2; grid-column-end: 3" spellcheck="false" placeholder="Imperial Navy Acolyte 3"></textarea>
+            <textarea
+                rows="16" cols="50"
+                class="diffInputField" id="inputFieldLeft"
+                style="grid-column-start: 1; grid-column-end: 2"
+                spellcheck="false"
+                placeholder="Paladin x1"></textarea>
+            <textarea
+                rows="16" cols="50"
+                class="diffInputField" id="inputFieldRight"
+                style="grid-column-start: 2; grid-column-end: 3"
+                spellcheck="false"
+                placeholder="Imperial Navy Acolyte 3"></textarea>
 
             <h3 style="grid-column-start: 1; grid-column-end: 2">Items missing vs. right</h3>
             <h3 style="grid-column-start: 2; grid-column-end: 3">Items missing vs. left</h3>
