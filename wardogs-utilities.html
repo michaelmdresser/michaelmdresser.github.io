@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Utilities for WARDOGS">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <title>WARDOGS Utilities</title>
+
+  <script type="module">
+   const form = document.querySelector("#mortarForm");
+   const distanceContainer = document.querySelector("#mortarDistance");
+   const angleContainer = document.querySelector("#mortarAngle");
+   const infoContainer = document.querySelector("#mortarInfo");
+
+   // numbers from the WARDOGS map
+   // you: {x: number, y: number}, target: {x: number, y: number}
+   // {distance_m: number, angle_wardogs_rad: number}
+   function mortarCalculate(you, target) {
+       const dx = target["x"] - you["x"];
+       const dy = target["y"] - you["y"]
+       const dist_hectometers = Math.hypot(dx, dy);
+       // Apparently atan2(dx, dy) turns it into compass angles? I don't quite understand
+       const angle_wardogs_rad = Math.atan2(dx, dy);
+       // const angle_rad = Math.atan2(dy, dx);
+
+       return {"distance_m": dist_hectometers * 100, "angle_wardogs_rad": angle_wardogs_rad}
+   }
+
+   // Warning! Super lame parser!
+   // WARDOGS "mark coordinate" syntax: x98.43, y100.38
+   // {x: number, y: number}
+   function parseInput(rawInput) {
+       console.log("Raw input:", rawInput)
+       const [xRaw, yRaw] = rawInput.split(",");
+       const x = Number(xRaw.replace("x", "").trim());
+       const y = Number(yRaw.replace("y", "").trim());
+       return {"x": x, "y": y};
+   }
+
+   // Get into the [0, 2pi) range
+   function wrapRadians(radians) {
+       const twoPi = 2 * Math.PI;
+       return ((radians % twoPi) + twoPi) % twoPi;
+   }
+
+   function doIt() {
+       const youInput = document.querySelector("#mortarYou").value;
+       const targetInput = document.querySelector("#mortarTarget").value;
+       const results = mortarCalculate(parseInput(youInput), parseInput(targetInput));
+
+       console.log("results:", results);
+
+       // Where 0 is north, rather than math standard east
+       // const angle_wardogs_rad = results["angle_rad"] + Math.PI / 2.0;
+       const angle_wardogs_degrees = wrapRadians(results["angle_wardogs_rad"]) * 180 / Math.PI;
+
+       distanceContainer.textContent = `${results["distance_m"].toFixed(1)}m`;
+       angleContainer.textContent = `${angle_wardogs_degrees.toFixed(1)} degrees`;
+       infoContainer.textContent = "";
+   }
+
+   function handler() {
+       try {
+           doIt();
+       } catch (error) {
+           console.error(error);
+           infoContainer.textContent = `Failed! ${error.message}`;
+       }
+   }
+
+   form.addEventListener("submit", function(event) {
+       event.preventDefault(); // no refresh
+       handler();
+   });
+   
+  </script>
+
+</head>
+<body>
+
+  <a href="index.html">Home</a>
+
+  <h1>WARDOGS Utilities</h1>
+
+  <h3>Mortar Calculator</h3>
+  <form id="mortarForm">
+      <label for="mortarYou">Your position (map coordinates)</label>
+      <input type="text" id="mortarYou" placeholder="x98.43, y110.38">
+      <br>
+      <label for="mortarTarget">Target position (map coordinates)</label>
+      <input type="text" id="mortarTarget" placeholder="x94.53, y109.03">
+      <button type="submit">Calculate</button>
+  </form>
+  <br>
+  <div id="mortarOutputDiv">
+      <div id="mortarDistance"></div>
+      <div id="mortarAngle"></div>
+      <div id="mortarInfo"></div>
+  </div>
+
+        
+    </body>
+</html>
