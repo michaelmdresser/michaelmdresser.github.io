@@ -7,42 +7,12 @@
   <link rel="stylesheet" href="style.css">
   <title>WARDOGS Utilities</title>
 
+  <!-- This script is for single mortar / simple form -->
   <script type="module">
    const form = document.querySelector("#mortarForm");
    const distanceContainer = document.querySelector("#mortarDistance");
    const angleContainer = document.querySelector("#mortarAngle");
    const infoContainer = document.querySelector("#mortarInfo");
-
-   // numbers from the WARDOGS map
-   // you: {x: number, y: number}, target: {x: number, y: number}
-   // {distance_m: number, angle_wardogs_rad: number}
-   function mortarCalculate(you, target) {
-       const dx = target["x"] - you["x"];
-       const dy = target["y"] - you["y"]
-       const dist_hectometers = Math.hypot(dx, dy);
-       // Apparently atan2(dx, dy) turns it into compass angles? I don't quite understand
-       const angle_wardogs_rad = Math.atan2(dx, dy);
-       // const angle_rad = Math.atan2(dy, dx);
-
-       return {"distance_m": dist_hectometers * 100, "angle_wardogs_rad": angle_wardogs_rad}
-   }
-
-   // Warning! Super lame parser!
-   // WARDOGS "mark coordinate" syntax: x98.43, y100.38
-   // {x: number, y: number}
-   function parseInput(rawInput) {
-       console.log("Raw input:", rawInput)
-       const [xRaw, yRaw] = rawInput.split(",");
-       const x = Number(xRaw.replace("x", "").trim());
-       const y = Number(yRaw.replace("y", "").trim());
-       return {"x": x, "y": y};
-   }
-
-   // Get into the [0, 2pi) range
-   function wrapRadians(radians) {
-       const twoPi = 2 * Math.PI;
-       return ((radians % twoPi) + twoPi) % twoPi;
-   }
 
    function doIt() {
        const youInput = document.querySelector("#mortarYou").value;
@@ -76,6 +46,268 @@
    
   </script>
 
+  <!-- This script is for multi-mortar -->
+  <script src="//unpkg.com/alpinejs" defer></script>
+  <script>
+   // numbers from the WARDOGS map
+   // you: {x: number, y: number}, target: {x: number, y: number}
+   // {distance_m: number, angle_wardogs_rad: number}
+   function mortarCalculate(you, target) {
+       const dx = target["x"] - you["x"];
+       const dy = target["y"] - you["y"]
+       const dist_hectometers = Math.hypot(dx, dy);
+       // Apparently atan2(dx, dy) turns it into compass angles? I don't quite understand
+       const angle_wardogs_rad = Math.atan2(dx, dy);
+       // const angle_rad = Math.atan2(dy, dx);
+
+       return {"distance_m": dist_hectometers * 100, "angle_wardogs_rad": angle_wardogs_rad}
+   }
+
+   // Warning! Super lame parser!
+   // WARDOGS "mark coordinate" syntax: x98.43, y100.38
+   // {x: number, y: number}
+   function parseInput(rawInput) {
+       console.log("Raw input:", rawInput)
+       const [xRaw, yRaw] = rawInput.split(",");
+
+       if (!xRaw || !yRaw) {
+           throw new Error("Bad input, try something like 'x98.42, y100.38'");
+       }
+
+       const x = Number(xRaw.replace("x", "").trim());
+       const y = Number(yRaw.replace("y", "").trim());
+
+       if (!Number.isFinite(x) || !Number.isFinite(y)) {
+           throw new Error("Inputs are not numbers, try something like `x98.42, y100.38`");
+       }
+
+       return {"x": x, "y": y};
+   }
+
+   // Get into the [0, 2pi) range
+   function wrapRadians(radians) {
+       const twoPi = 2 * Math.PI;
+       return ((radians % twoPi) + twoPi) % twoPi;
+   }
+
+   function prettyPrintPosition(position) {
+       return `x${position.x}, y${position.y}`;
+   }
+
+  function multiMortar() {
+      return {
+          // name: { position: {x: number, y: number}, name: string}
+          mortars: {},
+          targets: {},
+  
+          mortarInput: "",
+          mortarLabelInput: "",
+  
+          targetInput: "",
+          targetLabelInput: "",
+  
+          selectedMortarKey: '',
+          selectedTargetKey: '',
+  
+          calcMortar: undefined,
+          calcTarget: undefined,
+          distance: "",
+          angle: "",
+          info: "",
+
+init() {
+    this.loadFromUrl();
+
+    this.$watch(
+        () => ({
+            mortars: this.mortars,
+            targets: this.targets,
+            selectedMortarKey: this.selectedMortarKey,
+            selectedTargetKey: this.selectedTargetKey,
+        }),
+        () => {
+            this.saveToUrl();
+        }
+    );
+},
+saveToUrl() {
+    const state = {
+        mortars: this.mortars,
+        targets: this.targets,
+        selectedMortarKey: this.selectedMortarKey,
+        selectedTargetKey: this.selectedTargetKey,
+    };
+
+    const encoded = encodeURIComponent(
+        JSON.stringify(state)
+    );
+
+    history.replaceState(
+        null,
+        "",
+        `#state=${encoded}`
+    );
+},
+loadFromUrl() {
+    const hash = window.location.hash;
+
+    if (!hash.startsWith("#state=")) {
+        return;
+    }
+
+    try {
+        const encoded = hash.substring("#state=".length);
+
+        const state = JSON.parse(
+            decodeURIComponent(encoded)
+        );
+
+        this.mortars = state.mortars ?? {};
+        this.targets = state.targets ?? {};
+
+        this.selectedMortarKey =
+            state.selectedMortarKey ?? "";
+
+        this.selectedTargetKey =
+            state.selectedTargetKey ?? "";
+
+        this.calculate();
+    } catch (error) {
+        console.error("Invalid URL state:", error);
+        this.info = "Invalid state in URL";
+    }
+},
+
+copyToClipboard(position) {
+    const text = prettyPrintPosition(position);
+    navigator.clipboard.writeText(text).then(() => {
+        this.info = `Copied ${text} to clipboard`;
+    }).catch(err => {
+        console.error("Failed to copy: ", err);
+    });
+},
+
+          parseMortar() {
+              const position = parseInput(this.mortarInput);
+              const name = this.mortarLabelInput.trim();
+              const mortar = { position, name };
+              console.log("Parsed mortar: ", mortar);
+              return mortar;
+          },
+          parseTarget() {
+              const position = parseInput(this.targetInput);
+              const name = this.targetLabelInput.trim();
+              const target = { position, name };
+              console.log("Parsed target: ", target);
+              return target;
+          },
+  
+          addMortar() {
+              try {
+                  const mortar = this.parseMortar();
+
+                  if (!mortar.name) {
+                      this.info = "Not adding mortar with no label";
+                      return mortar;
+                  }
+                  if (Object.hasOwn(this.mortars, mortar.name)) {
+                      this.info = "Not adding mortar of the same name";
+                      return mortar;
+                  }
+
+                  this.mortars[mortar.name] = mortar;
+                  this.selectedMortarKey = mortar.name;
+  
+                  this.mortarInput = "";
+                  this.mortarLabelInput = "";
+                  this.info = "";
+
+                  this.calculate();
+                  return mortar;
+              } catch (error) {
+                  this.info = `Failed: ${error.message}`;
+              }
+          },
+  
+          addTarget() {
+              try {
+                  const target = this.parseTarget();
+
+                  if (!target.name) {
+                      this.info = "Not adding target with no label";
+                      return target;
+                  }
+                  if (Object.hasOwn(this.targets, target.name)) {
+                      this.info = "Not adding target of the same name";
+                      return target;
+                  }
+
+                  this.targets[target.name] = target;
+                  this.selectedTargetKey = target.name;
+  
+                  this.targetInput = "";
+                  this.targetLabelInput = "";
+                  this.info = "";
+
+                  this.calculate();
+                  return target;
+              } catch (error) {
+                  this.info = `Failed: ${error.message}`;
+              }
+          },
+  
+          calculate() {
+              let mortar = undefined;
+              let target = undefined;
+
+              if (this.selectedMortarKey) {
+                  mortar = this.mortars[this.selectedMortarKey];
+              } else if (this.mortarInput) {
+                  mortar = this.parseMortar();
+              } else {
+                  throw new Error("Cannot calculate with no mortar");
+              }
+              if (this.selectedTargetKey) {
+                  target = this.targets[this.selectedTargetKey];
+              } else if (this.targetInput) {
+                  target = this.parseTarget();
+              } else {
+                  throw new Error("Cannot calculate with no target");
+                  return;
+              }
+  
+              if (!mortar || !target) {
+                  throw new Error("Cannot calculate with no mortar and/or no target");
+                  return;
+              }
+  
+              try {
+                  const result = mortarCalculate(
+                      mortar.position,
+                      target.position
+                  );
+  
+                  const degrees =
+                      wrapRadians(result.angle_wardogs_rad)
+                      * 180
+                      / Math.PI;
+  
+                  this.calcMortar = mortar;
+                  this.calcTarget = target;
+                  this.distance = `${result.distance_m.toFixed(1)}m`;
+                  this.angle = `${degrees.toFixed(1)} degrees`;
+                  this.info = "";
+              } catch (error) {
+                  this.distance = "";
+                  this.angle = "";
+                  this.info = `Failed! ${error.message}`;
+              }
+          },
+
+      };
+  }
+  </script>
+
 </head>
 <body>
 
@@ -84,6 +316,8 @@
   <h1>WARDOGS Utilities</h1>
 
   <h3>Mortar Calculator</h3>
+
+  <h4>Single</h4>
   <form id="mortarForm">
       <label for="mortarYou">Your position (map coordinates)</label>
       <input type="text" id="mortarYou" placeholder="x98.43, y110.38">
@@ -93,11 +327,108 @@
       <button type="submit">Calculate</button>
   </form>
   <br>
+
   <div id="mortarOutputDiv">
       <div id="mortarDistance"></div>
       <div id="mortarAngle"></div>
       <div id="mortarInfo"></div>
   </div>
+
+  <h4>Multi</h4>
+  <div id="multiMortarContainer" x-data="multiMortar()">
+      <label for="multiMortarYou">
+          Mortar position
+          <input x-model="mortarInput" type="text" id="multiMortarYou"
+                 placeholder="x98.43, y110.38" @keydown.enter.prevent="selectedMortarKey = ''; calculate()"
+                 @input="selectedMortarKey = ''"
+          >
+      </label>
+      <br>
+      <label for="multiMortarYouLabel">
+          Mortar label (optional)
+          <input x-model="mortarLabelInput" type="text" @keydown.enter.prevent="addMortar()" id="multiMortarYouLabel" placeholder="FOB 1 NE Mortar">
+      </label>
+      <!-- If both fields filled out, add to radiobutton list in the options -->
+      <button @click="addMortar()" type="button" id="multiMortarAddMortar">Add Mortar</button>
+
+      <br><br>
+
+      <label for="multiMortarTarget">
+          Target position
+          <input x-model="targetInput" type="text" id="multiMortarTarget"
+                 placeholder="x94.53, y109.03" @keydown.enter.prevent="selectedTargetKey = ''; calculate()"
+                 @input="selectedTargetKey = ''"
+          >
+      </label>
+      <br>
+      <label for="multiMortarTargetLabel">
+          Target label (optional)
+          <input x-model="targetLabelInput" type="text" @keydown.enter.prevent="addTarget()" id="multiMortarTargetLabel" placeholder="Red FOB Drill">
+      </label>
+      <!-- If both fields filled out, add to radiobutton list in the options -->
+      <button @click="addTarget()" type="button" id="multiMortarAddTarget">Add Target</button>
+
+      <br>
+      <br>
+
+      <button type="button" @click="calculate()">Calculate</button>
+
+      <hr>
+
+      <fieldset>
+      <legend>Mortars</legend>
+      <div id="multiMortarYouOptions">
+      <template x-for="[key, mortar] in Object.entries(mortars)" :key="key">
+          <div>
+              <input x-model="selectedMortarKey" type="radio" name="multiMortarYou" :value="key" @change="calculate()">
+              <span x-text="mortar.name + ': '"></span>
+              <code style="user-select:all" x-text="prettyPrintPosition(mortar.position)"></code>
+              <button type="button" @click="copyToClipboard(mortar.position)">Copy</button>
+          </div>
+      </template>
+      <label>
+          <input x-model="selectedMortarKey" type="radio" name="multiMortarYou" value="" @change="calculate()">
+          <span>N/A</span>
+      </label>
+      </div>
+      </fieldset>
+
+      <fieldset>
+      <legend>Targets</legend>
+      <div id="multiMortarTargetOptions">
+      <template x-for="[key, target] in Object.entries(targets)" :key="key">
+          <div>
+              <input x-model="selectedTargetKey" type="radio" name="multiMortarTarget" :value="key" @change="calculate()">
+              <span x-text="target.name + ': '"></span>
+              <code style="user-select:all" x-text="prettyPrintPosition(target.position)"></code>
+              <button type="button" @click="copyToClipboard(target.position)">Copy</button>
+          </div>
+      </template>
+      <label>
+          <input x-model="selectedTargetKey" type="radio" name="multiMortarTarget" value="" @change="calculate()">
+          <span>N/A</span>
+      </label>
+      </div>
+      </fieldset>
+
+      <div id="multiMortarOutput">
+          <template x-if="info">
+              <div x-text="info" id="multiMortarInfo"></div>
+              <br>
+          </template>
+          <template x-if="calcMortar">
+              <div x-text="'Mortar: ' + prettyPrintPosition(calcMortar.position)"></div>
+          </template>
+          <template x-if="calcTarget">
+              <div x-text="'Target: ' + prettyPrintPosition(calcTarget.position)"></div>
+          </template>
+          <br>
+          <strong><div x-text="distance" id="multiMortarDistance"></div></strong>
+          <strong><div x-text="angle" id="multiMortarAngle"></div></strong>
+      </div>
+  </div>
+
+
 
         
     </body>
