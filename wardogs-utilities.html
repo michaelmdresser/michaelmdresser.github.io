@@ -106,8 +106,8 @@
           targetInput: "",
           targetLabelInput: "",
   
-          selectedMortarKey: '',
-          selectedTargetKey: '',
+          selectedMortarKey: "",
+          selectedTargetKey: "",
   
           calcMortar: undefined,
           calcTarget: undefined,
@@ -171,11 +171,12 @@ loadFromUrl() {
         this.selectedTargetKey =
             state.selectedTargetKey ?? "";
 
-        this.calculate();
     } catch (error) {
         console.error("Invalid URL state:", error);
-        this.info = "Invalid state in URL";
+        this.info = "Invalid state in URL: " + error;
     }
+
+    this.calculate();
 },
 
 copyToClipboard(position) {
@@ -375,6 +376,8 @@ copyToClipboard(position) {
 
       <hr>
 
+      <button type="button" @click="mortars = {}; targets = {}; calculate()">Clear</button>
+
       <fieldset>
       <legend>Mortars</legend>
       <div id="multiMortarYouOptions">
@@ -384,6 +387,7 @@ copyToClipboard(position) {
               <span x-text="mortar.name + ': '"></span>
               <code style="user-select:all" x-text="prettyPrintPosition(mortar.position)"></code>
               <button type="button" @click="copyToClipboard(mortar.position)">Copy</button>
+              <button type="button" style="margin-left: 40px" @click="delete mortars[key]">Delete</button>
           </div>
       </template>
       <label>
@@ -402,6 +406,7 @@ copyToClipboard(position) {
               <span x-text="target.name + ': '"></span>
               <code style="user-select:all" x-text="prettyPrintPosition(target.position)"></code>
               <button type="button" @click="copyToClipboard(target.position)">Copy</button>
+              <button type="button" style="margin-left: 40px" @click="delete targets[key]">Delete</button>
           </div>
       </template>
       <label>
@@ -417,10 +422,16 @@ copyToClipboard(position) {
               <br>
           </template>
           <template x-if="calcMortar">
-              <div x-text="'Mortar: ' + prettyPrintPosition(calcMortar.position)"></div>
+              <div>
+              <span>Mortar: </span>
+              <code x-text="prettyPrintPosition(calcMortar.position)"></code>
+              </div>
           </template>
           <template x-if="calcTarget">
-              <div x-text="'Target: ' + prettyPrintPosition(calcTarget.position)"></div>
+              <div>
+              <span>Target: </span>
+              <code x-text="prettyPrintPosition(calcTarget.position)"></code>
+              </div>
           </template>
           <br>
           <strong><div x-text="distance" id="multiMortarDistance"></div></strong>
